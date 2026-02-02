@@ -1,9 +1,15 @@
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/string.hpp>
 
+/**
+ * @brief Subscriber node that logs messages from /chatter.
+ */
 class Listener : public rclcpp::Node
 {
 public:
+  /**
+   * @brief Construct a listener node and create the subscription.
+   */
   Listener() : Node("listener")
   {
     RCLCPP_INFO(this->get_logger(), "Listener has started");
@@ -14,6 +20,10 @@ public:
   }
 
 private:
+  /**
+   * @brief Handle incoming chatter messages.
+   * @param msg Received message.
+   */
   void on_message(const std_msgs::msg::String::SharedPtr msg)
   {
     RCLCPP_INFO(this->get_logger(), "I heard: '%s'", msg->data.c_str());
@@ -22,6 +32,9 @@ private:
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
 };
 
+/**
+ * @brief Entry point for the listener node.
+ */
 int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
