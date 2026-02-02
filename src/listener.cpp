@@ -16,7 +16,7 @@ public:
     subscription_ = this->create_subscription<std_msgs::msg::String>(
       "/chatter",
       10,
-      std::bind(&Listener::on_message, this, std::placeholders::_1));
+      std::bind(&Listener::onMessage, this, std::placeholders::_1));
   }
 
 private:
@@ -24,7 +24,7 @@ private:
    * @brief Handle incoming chatter messages.
    * @param msg Received message.
    */
-  void on_message(const std_msgs::msg::String::SharedPtr msg)
+  void onMessage(const std_msgs::msg::String::SharedPtr msg)
   {
     RCLCPP_INFO(this->get_logger(), "I heard: '%s'", msg->data.c_str());
   }
