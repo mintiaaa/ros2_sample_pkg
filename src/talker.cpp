@@ -1,12 +1,19 @@
-#include <rclcpp/rclcpp.hpp>
-#include <std_msgs/msg/string.hpp>
-
+#include <chrono>
 #include <cstdint>
 #include <string>
 
+#include <rclcpp/rclcpp.hpp>
+#include <std_msgs/msg/string.hpp>
+
+/**
+ * @brief Publisher node that sends messages to /chatter.
+ */
 class Talker : public rclcpp::Node
 {
 public:
+    /**
+     * @brief Construct a talker node and create the publisher timer.
+     */
     Talker()
         : Node("talker")
     {
@@ -22,6 +29,9 @@ public:
     }
 
 private:
+    /**
+     * @brief Publish a message on timer tick.
+     */
     void onTimer()
     {
         std_msgs::msg::String msg;
