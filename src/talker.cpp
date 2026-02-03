@@ -1,6 +1,7 @@
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/string.hpp>
 
+#include <cstdint>
 #include <string>
 
 class Talker: public rclcpp::Node
@@ -12,9 +13,11 @@ public:
         RCLCPP_INFO(this->get_logger(), "Talker has started");
         const auto topic = this->declare_parameter<std::string>("topic", "/chatter");
         const auto qos = rclcpp::QoS(10).reliable();
+        const auto publish_period_ms =
+            this->declare_parameter<int64_t>("publish_period_ms", 100);
         publisher_ = this->create_publisher<std_msgs::msg::String>(topic, qos);
         timer_ = this->create_wall_timer(
-            std::chrono::milliseconds(100),
+            std::chrono::milliseconds(publish_period_ms),
             std::bind(&Talker::on_timer, this));
     }
 
