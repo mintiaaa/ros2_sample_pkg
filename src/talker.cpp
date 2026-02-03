@@ -1,6 +1,8 @@
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/string.hpp>
 
+#include <string>
+
 class Talker: public rclcpp::Node
 {
 public:
@@ -20,12 +22,13 @@ private:
     void on_timer()
     {
         std_msgs::msg::String msg;
-        msg.data = "hello";
+        msg.data = "hello " + std::to_string(counter_++);
         publisher_->publish(msg);
     }
 
     rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
     rclcpp::TimerBase::SharedPtr timer_;
+    std::size_t counter_{0};
 };
 
 
