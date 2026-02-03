@@ -18,11 +18,11 @@ public:
         publisher_ = this->create_publisher<std_msgs::msg::String>(topic, qos);
         timer_ = this->create_wall_timer(
             std::chrono::milliseconds(publish_period_ms),
-            std::bind(&Talker::on_timer, this));
+            std::bind(&Talker::onTimer, this));
     }
 
 private:
-    void on_timer()
+    void onTimer()
     {
         std_msgs::msg::String msg;
         msg.data = "hello " + std::to_string(counter_++);
