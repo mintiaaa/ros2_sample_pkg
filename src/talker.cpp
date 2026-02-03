@@ -8,7 +8,8 @@ public:
         : Node("talker")
     {
         RCLCPP_INFO(this->get_logger(), "Talker has started");
-        publisher_ = this->create_publisher<std_msgs::msg::String>("/chatter", 10);
+        const auto topic = this->declare_parameter<std::string>("topic", "/chatter");
+        publisher_ = this->create_publisher<std_msgs::msg::String>(topic, 10);
         timer_ = this->create_wall_timer(
             std::chrono::milliseconds(100),
             std::bind(&Talker::on_timer, this));
