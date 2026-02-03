@@ -14,9 +14,10 @@ public:
   {
     RCLCPP_INFO(this->get_logger(), "Listener has started");
     const auto topic = this->declare_parameter<std::string>("topic", "/chatter");
+    const auto qos = rclcpp::QoS(10).reliable();
     subscription_ = this->create_subscription<std_msgs::msg::String>(
       topic,
-      10,
+      qos,
       std::bind(&Listener::onMessage, this, std::placeholders::_1));
   }
 
