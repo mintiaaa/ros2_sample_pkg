@@ -44,7 +44,9 @@ private:
     std::size_t counter_{0};
 };
 
-
+/**
+ * @brief Entry point for the talker node.
+ */
 int main(int argc, char** argv)
 {
     rclcpp::init(argc, argv);
