@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <string>
 
-class Talker: public rclcpp::Node
+class Talker : public rclcpp::Node
 {
 public:
     Talker()
