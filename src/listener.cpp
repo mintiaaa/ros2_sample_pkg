@@ -13,8 +13,9 @@ public:
   Listener() : Node("listener")
   {
     RCLCPP_INFO(this->get_logger(), "Listener has started");
+    const auto topic = this->declare_parameter<std::string>("topic", "/chatter");
     subscription_ = this->create_subscription<std_msgs::msg::String>(
-      "/chatter",
+      topic,
       10,
       std::bind(&Listener::onMessage, this, std::placeholders::_1));
   }
